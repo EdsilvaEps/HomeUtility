@@ -55,7 +55,7 @@ JsonHandler::getElectricityHourPrices(bool onlyCheapest = false)
 
 }
 
-bool JsonHandler::ePricesAvailable()
+bool JsonHandler::ePricesAvailable() noexcept
 {
     QFile file(this->_ePricesPath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -64,7 +64,7 @@ bool JsonHandler::ePricesAvailable()
     return true;
 }
 
-bool JsonHandler::weatherDataAvailable()
+bool JsonHandler::weatherDataAvailable() noexcept
 {
     QFile file(this->_weatherDataPath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {

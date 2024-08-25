@@ -26,7 +26,7 @@ ElectricityGraph::ElectricityGraph(QWidget *parent) :
     auto pricesBarSet = new QBarSet("electricyPrices");
     QStringList cats;
 
-    for(EHourPrice e : *hourPrices){
+    for(const EHourPrice &e : *hourPrices){
         *pricesBarSet << e.price;
         cats.append(e.hour);
     }

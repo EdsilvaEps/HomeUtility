@@ -29,13 +29,6 @@
      <item>
       <widget class="QListWidget" name="listWidget"/>
      </item>
-     <item>
-      <widget class="QSlider" name="verticalSlider">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>

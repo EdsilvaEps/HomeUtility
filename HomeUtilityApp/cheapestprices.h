@@ -2,14 +2,14 @@
 #define CHEAPESTPRICES_H
 
 #include <QWidget>
-#include "jsonhandler.h"
 #include "ui_cheapestprices.h"
+#include <QDialog>
 
 namespace Ui {
 class cheapestPrices;
 }
 
-class cheapestPrices : public QWidget
+class cheapestPrices : public QDialog
 {
     Q_OBJECT
 

@@ -32,11 +32,11 @@ public:
 
 
 private:
-    QString _ePricesPath = "/home/edson/Documents/EddiesHomeUtils/prices.json";
+    QString _ePricesPath = "/home/edson/Documents/HomeUtility/HomeUtilityScripts/prices.json";
     QString _weatherDataPath = "";
 
-    bool ePricesAvailable();
-    bool weatherDataAvailable();
+    bool ePricesAvailable() noexcept;
+    bool weatherDataAvailable() noexcept;
     QJsonObject parseJson(const QString &file);
 };
 

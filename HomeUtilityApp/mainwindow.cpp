@@ -3,6 +3,7 @@
 #include <memory>
 #include <QDebug>
 #include "jsonhandler.h"
+#include "cheapestprices.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -24,7 +25,7 @@ void MainWindow::on_pushButton_clicked()
     //     EventEdit * dialog = new EventEdit(this);
     auto jsonHandler = std::make_unique<JsonHandler>();
     auto eData = jsonHandler->getElectricityHourPrices(false);
-    for(EHourPrice e : *eData){
+    for(const EHourPrice &e : *eData){
         qDebug() << "Hour " << e.hour;
     }
 
@@ -35,6 +36,14 @@ void MainWindow::on_pushButton_clicked()
     eGraph->exec();
     qDebug() << "electricity graph";
 
+}
+
+
+void MainWindow::on_ePricesBtn_clicked()
+{
+    auto cheapPrices = std::make_unique<cheapestPrices>(this);
+    cheapPrices->exec();
+    qDebug() << "cheapest prices list";
 
 
 }
