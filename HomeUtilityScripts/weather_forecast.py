@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 #from datetime import datetime
 import requests
+import json
+
 
 weather_page = requests.get("https://www.foreca.com/100643492/Oulu-Finland/hourly?day=0")
 soup = BeautifulSoup(weather_page.text,"html.parser")
@@ -21,3 +23,31 @@ for hourly_item in soup.find_all("div", attrs={"class":"hour"}):
 
 for i in range(len(hours)):
     print(f"{hours[i]} | temperature: {temps[i]} | {rain_chance[i]} ")
+
+if len(temps) == 0 : 
+    print("search did not find anything")
+    exit
+
+# packs the whole of the electricity prices informations
+# and insights into a json file
+def package_information():
+
+    # list of dicts containin hour, temperature and precipitation chance:
+    temp_objs = [dict(zip(['hour','temp','precip'], value)) for value in zip(hours, temps, rain_chance)]
+    #print(temp_objs)
+
+    data = {
+        'tempObjs' : temp_objs 
+    }
+   
+    with open('weather.json' , 'w') as f:
+        json.dump(data, f, indent=1)
+
+    print("weather forecast json created")
+    
+
+def main():
+    package_information()
+
+if __name__ == "__main__":
+    main()

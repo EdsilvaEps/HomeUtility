@@ -11,6 +11,46 @@ JsonHandler::JsonHandler()
 
 }
 
+std::unique_ptr<vector<WeatherHour> > JsonHandler::getWeatherForecastData()
+{
+    auto weatherVector = std::make_unique<vector<WeatherHour>>();
+    std::unique_ptr<QJsonObject> jsonWeatherForecast;
+    if(this->weatherDataAvailable()){
+
+        try {
+            jsonWeatherForecast = std::make_unique<QJsonObject>(parseJson(this->_weatherDataPath));
+        }
+        catch (const std::ios_base::failure &e) {
+            qWarning() << "Json file failure: " << e.what();
+            return weatherVector;
+        }
+        QString key = "tempObjs";
+        if(jsonWeatherForecast->contains(key) && jsonWeatherForecast->value(key).isArray()){
+            QJsonArray weather_arr = jsonWeatherForecast->value(key).toArray();
+            for(const  QJsonValue &value : weather_arr){
+                WeatherHour wh = {"","",""}; // initialize struct of type WeatherHour
+                QJsonObject obj = value.toObject();
+
+                if(obj.contains("hour") && obj["hour"].isString())
+                    wh.hour = obj["hour"].toString();
+                if(obj.contains("temp") && obj["temp"].isString())
+                    wh.temp = obj["temp"].toString();
+                if(obj.contains("precip") && obj["precip"].isString())
+                    wh.rainChance = obj["precip"].toString();
+
+                weatherVector->push_back(wh);
+            }
+        }
+
+    }
+
+    return weatherVector;
+
+
+
+}
+
+
 std::unique_ptr<vector<EHourPrice>>
 JsonHandler::getElectricityHourPrices(bool onlyCheapest = false)
 {

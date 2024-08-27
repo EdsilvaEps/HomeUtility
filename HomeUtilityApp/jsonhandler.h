@@ -17,8 +17,8 @@ struct EHourPrice {
 
 struct WeatherHour {
     QString hour;
-    float temp;
-    float rainChance;
+    QString temp;
+    QString rainChance;
 };
 
 class JsonHandler
@@ -29,11 +29,12 @@ public:
 
     std::unique_ptr<vector<EHourPrice>> getElectricityHourPrices(bool onlyCheapest);
     int getAverageElectricityPrice(); // TODO: make this a local calculation
+    std::unique_ptr<vector<WeatherHour>> getWeatherForecastData();
 
 
 private:
     QString _ePricesPath = "/home/edson/Documents/HomeUtility/HomeUtilityScripts/prices.json";
-    QString _weatherDataPath = "";
+    QString _weatherDataPath = "/home/edson/Documents/HomeUtility/HomeUtilityScripts/weeather.json";
 
     bool ePricesAvailable() noexcept;
     bool weatherDataAvailable() noexcept;
